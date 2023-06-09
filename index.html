@@ -6,9 +6,19 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+    </style>
     <h1>Web Shop</h1>
-    <div class="cart-container">
-        <button class="cart-button">Cart <span class="cart-badge">0</span></button>
+    <div class="actions-container">
+      <div>
+        <input class="input" type="text" id="search-input" placeholder="Search">
+        <select class="input" id="sort-select">
+          <option value="name">Sort by Name</option>
+          <option value="price">Sort by Price</option>
+        </select>
+      </div>
+      <button class="cart-button">Cart <span class="cart-badge">0</span></button>
     </div>
 
     <div class="items-grid">
@@ -16,13 +26,15 @@
 
     <div class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close-modal">&times;</span>
         <h2>Cart</h2>
+        <p id="purchase-message" class="purchase-message"></p>
         <ul class="cart-items"></ul>
         <p>Total: <span class="cart-total">$0.00</span></p>
         <button class="buy-btn">Buy</button>
       </div>
     </div>
+
     <script src="script.js"></script>
   </body>
 </html>

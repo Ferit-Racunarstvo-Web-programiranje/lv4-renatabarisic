@@ -1,3 +1,6 @@
 <?php
+include 'functions.php';
 
-echo "hello LV4 homework";
+$conn = db_connect();
+
+?>

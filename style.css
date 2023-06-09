@@ -1,23 +1,36 @@
 /* CSS variables */
 :root {
-    --primary-color: #007bff;
-    --secondary-color: #6c757d;
+    --darker-primary-color: hsl(268, 58%, 72%);
+    --primary-color: hsl(268, 58%, 80%);
+    --lighter-primary-color: hsl(268, 58%, 92%);
+    --secondary-color: #000000;
+    --lighter-secondary-color: hsl(0, 0%, 22%);
+    --success-color: rgb(86, 155, 86);
+    --error-color: rgb(209, 36, 36);
+    --tertiary-color: #ffffff;
+    --shadow-color: rgba(0,0,0,0.4);
     --font-size-base: 16px;
-    --font-family-base: Arial, sans-serif;
+    --font-family-base: 'Roboto', sans-serif;
 }
 
 /* Global styles */
+*{
+    box-sizing: border-box;
+}
+
 body {
     font-size: var(--font-size-base);
     font-family: var(--font-family-base);
-    color: #333;
+    color: var(--secondary-color);
     margin: 0;
     padding: 0;
 }
 
 h1 {
     font-size: 2.5em;
-    margin-top: 0;
+    margin: 0.4em;
+    padding-bottom: 0.1em;
+    border-bottom: 2px solid var(--secondary-color);
 }
 
 h2 {
@@ -28,22 +41,41 @@ h2 {
 img {
     max-width: 100%;
     height: auto;
+    border-radius: 20px;
 }
 
 /* Header styles */
+.actions-container{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.input{
+    height: 40px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 90px;
+    padding: 0.4em;
+}
+
 .cart-button {
     background-color: var(--primary-color);
-    color: white;
+    color: var(--secondary-color);
     border: none;
-    border-radius: 3px;
+    border-radius: 90px;
     padding: 0.5em 1em;
     font-size: 1.2em;
     cursor: pointer;
 }
 
+.cart-button:hover {
+    background-color: var(--darker-primary-color);
+}
+
 .cart-badge {
     background-color: var(--secondary-color);
-    color: white;
+    color: var(--tertiary-color);
     border-radius: 50%;
     padding: 0.2em 0.5em;
     margin-left: 0.5em;
@@ -55,21 +87,21 @@ img {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 1em;
-    margin-top: 1em;
+    margin: 1em;
 }
 
 .item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    background-color: var(--lighter-primary-color);
+    border-radius: 20px;
     padding: 1em;
 }
 
 .item h2 {
     margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .item p {
@@ -79,13 +111,17 @@ img {
 
 .add-to-cart-btn {
     background-color: var(--primary-color);
-    color: white;
+    color: var(--secondary-color);
     border: none;
-    border-radius: 3px;
+    border-radius: 90px;
     padding: 0.5em 1em;
     font-size: 1.2em;
     cursor: pointer;
     margin-top: auto;
+}
+
+.add-to-cart-btn:hover {
+    background-color: var(--darker-primary-color);
 }
 
 /* Modal styles */
@@ -98,7 +134,7 @@ img {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--shadow-color);
 }
 
 .modal.show-modal {
@@ -107,18 +143,22 @@ img {
 }
 
 .modal-content {
-    background-color: white;
+    background-color: var(--tertiary-color);
     margin: 15% auto;
     padding: 1em;
-    border: 1px solid #ccc;
     max-width: 600px;
+    border-radius: 20px;
 }
 
-.close {
+.close-modal {
     float: right;
     font-size: 2em;
     font-weight: bold;
     cursor: pointer;
+}
+
+.close-modal:hover {
+    color: var(--lighter-secondary-color);
 }
 
 .cart-items {
@@ -143,11 +183,36 @@ img {
 
 .buy-btn {
     background-color: var(--primary-color);
-    color: white;
+    color: var(--secondary-color);
     border: none;
-    border-radius: 3px;
+    border-radius: 90px;
     padding: 0.5em 1em;
     font-size: 1.2em;
     cursor: pointer;
-    margin-top: 1em;
+}
+
+.buy-btn:hover {
+    background-color: var(--darker-primary-color);
+}
+
+.remove-item-btn{
+    background-color: var(--secondary-color);
+    color: var(--tertiary-color);
+    border: none;
+    border-radius: 90px;
+    padding: 0.375em 0.75em;
+    font-size: 0.75em;
+    cursor: pointer;
+}
+
+.remove-item-btn:hover{
+    background-color: var(--lighter-secondary-color);
+}
+
+.error{
+    color: var(--error-color)
+}
+
+.success{
+    color: var(--success-color)
 }
