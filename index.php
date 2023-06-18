@@ -87,7 +87,10 @@
 
     <div class="modal">
         <div class="modal-content">
-            <h2>Cart</h2>
+            <div class="modal-header">
+                <h2>Cart</h2>
+                <span class="close-modal" onclick="closeCartModal()">&times;</span>
+            </div>
             <p id="purchase-message" class="purchase-message"></p>
             <ul class="cart-items">
                 <?php foreach ($_SESSION['cart'] ?? [] as $productId => $quantity) {
@@ -99,7 +102,6 @@
             </ul>
             <p>Total: <span class="cart-total">$0.00</span></p>
             <button class="buy-btn" onclick="buyItems()">Buy</button>
-            <span class="close-modal" onclick="closeCartModal()">&times;</span>
         </div>
     </div>
 
@@ -149,17 +151,21 @@
             }
         };
 
+        const purchaseMessage = document.getElementById('purchase-message');
+
         const buyItems = () => {
             const cartItems = <?php echo isset($_SESSION['cart']) ? json_encode($_SESSION['cart']) : '[]'; ?>;
             if (cartItems.length > 0) {
-            // TODO: Perform the purchase logic here
-            // TODO: Empty the cart and display success message
             <?php unset($_SESSION['cart']); ?>
-            console.log('Items purchased!');
-            } else {
-            console.log('Error: Cart is empty!');
+            purchaseMessage.textContent = 'Items purchased!';
+            purchaseMessage.classList.remove('error');
+            purchaseMessage.classList.add('success');
             }
-            closeCartModal();
+            else {
+            purchaseMessage.textContent = 'Error: Cart is empty!';
+            purchaseMessage.classList.remove('success');
+            purchaseMessage.classList.add('error');
+            }
         };
     </script>
 
