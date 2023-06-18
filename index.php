@@ -3,7 +3,6 @@
     include('db.php');
     $conn = db_connect();
 
-    // Retrieve data from the "products" table
     $result = mysqli_query($conn, "SELECT * FROM products");
     $products = array();
 
@@ -13,16 +12,14 @@
         }
     }
 
-    // Search functionality
     if (isset($_GET['search'])) {
         $searchTerm = $_GET['search'];
         $filteredProducts = array_filter($products, function ($product) use ($searchTerm) {
             return strpos(strtolower($product['name']), strtolower($searchTerm)) !== false;
         });
-        $products = array_values($filteredProducts); // Re-index the array keys
+        $products = array_values($filteredProducts);
     }
 
-    // Sort functionality
     if (isset($_GET['sort'])) {
         $sortOption = $_GET['sort'];
         if ($sortOption === 'name') {
@@ -35,15 +32,14 @@
             });
         }
 
-    $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+        $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 
-    // Add to Cart functionality
-    if (isset($_POST['add_to_cart'])) {
-        $productId = $_POST['add_to_cart'];
-        $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : array();
-        $cart[$productId] = isset($cart[$productId]) ? $cart[$productId] + 1 : 1;
-        $_SESSION['cart'] = $cart;
-    }
+        if (isset($_POST['add_to_cart'])) {
+            $productId = $_POST['add_to_cart'];
+            $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : array();
+            $cart[$productId] = isset($cart[$productId]) ? $cart[$productId] + 1 : 1;
+            $_SESSION['cart'] = $cart;
+        }
     }
 
     mysqli_close($conn);
@@ -108,65 +104,64 @@
     </div>
 
     <script>
-  const items = <?php echo json_encode($products); ?>;
-  const cart = [];
+        const items = <?php echo json_encode($products); ?>;
+        const cart = [];
 
-  const addToCart = (productId) => {
-    const item = items.find((item) => item.code === productId);
-    if (item) {
-      cart.push(item);
-      updateCart();
-      updateCartCount(cart.length);
-    }
-  };
+        const addToCart = (productId) => {
+            const item = items.find((item) => item.code === productId);
+            if (item) {
+            cart.push(item);
+            updateCart();
+            updateCartCount(cart.length);
+            }
+        };
 
-  function updateCart() {
-    const cartItems = document.querySelector('.cart-items');
-    if (cartItems) {
-      cartItems.innerHTML = '';
-      cart.forEach((item) => {
-        const li = document.createElement('li');
-        li.textContent = `${item.name} (Quantity: 1)`;
-        cartItems.appendChild(li);
-      });
-    }
-  }
+        function updateCart() {
+            const cartItems = document.querySelector('.cart-items');
+            if (cartItems) {
+            cartItems.innerHTML = '';
+            cart.forEach((item) => {
+                const li = document.createElement('li');
+                li.textContent = `${item.name} (Quantity: 1)`;
+                cartItems.appendChild(li);
+            });
+            }
+        }
 
-  function updateCartCount(count) {
-    const cartBadge = document.querySelector('.cart-badge');
-    if (cartBadge) {
-      cartBadge.textContent = count;
-    }
-  }
+        function updateCartCount(count) {
+            const cartBadge = document.querySelector('.cart-badge');
+            if (cartBadge) {
+            cartBadge.textContent = count;
+            }
+        }
 
-  const openCartModal = () => {
-    const modal = document.querySelector('.modal');
-    if (modal) {
-      modal.style.display = 'block';
-    }
-  };
+        const openCartModal = () => {
+            const modal = document.querySelector('.modal');
+            if (modal) {
+            modal.style.display = 'block';
+            }
+        };
 
-  const closeCartModal = () => {
-    const modal = document.querySelector('.modal');
-    if (modal) {
-      modal.style.display = 'none';
-    }
-  };
+        const closeCartModal = () => {
+            const modal = document.querySelector('.modal');
+            if (modal) {
+            modal.style.display = 'none';
+            }
+        };
 
-  const buyItems = () => {
-    const cartItems = <?php echo isset($_SESSION['cart']) ? json_encode($_SESSION['cart']) : '[]'; ?>;
-    if (cartItems.length > 0) {
-      // Perform the purchase logic here
-      // Empty the cart and display success message
-      <?php unset($_SESSION['cart']); ?>
-      console.log('Items purchased!');
-    } else {
-      console.log('Error: Cart is empty!');
-    }
-    closeCartModal();
-  };
-</script>
-
+        const buyItems = () => {
+            const cartItems = <?php echo isset($_SESSION['cart']) ? json_encode($_SESSION['cart']) : '[]'; ?>;
+            if (cartItems.length > 0) {
+            // TODO: Perform the purchase logic here
+            // TODO: Empty the cart and display success message
+            <?php unset($_SESSION['cart']); ?>
+            console.log('Items purchased!');
+            } else {
+            console.log('Error: Cart is empty!');
+            }
+            closeCartModal();
+        };
+    </script>
 
 </body>
 </html>
