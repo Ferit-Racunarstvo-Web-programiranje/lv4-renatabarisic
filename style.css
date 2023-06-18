@@ -124,6 +124,21 @@ img {
     background-color: var(--darker-primary-color);
 }
 
+.apply-button {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 90px;
+    padding: 0.5em 1em;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-top: auto;
+}
+
+.apply-button:hover {
+    background-color: var(--darker-primary-color);
+}
+
 /* Modal styles */
 .modal {
     display: none;

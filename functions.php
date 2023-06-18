@@ -7,7 +7,16 @@ function db_connect() {
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    mysqli_close($conn);
+    return $conn;
+}
+
+function getProductById($productId, $products) {
+    foreach ($products as $product) {
+        if ($product['code'] === $productId) {
+            return $product;
+        }
+    }
+    return null;
 }
 
 ?>

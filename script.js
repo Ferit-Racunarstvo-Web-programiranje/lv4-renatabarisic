@@ -9,29 +9,6 @@ const cartTotal = document.querySelector('.cart-total');
 const itemsGrid = document.querySelector('.items-grid');
 const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
 
-let items = [
-  {
-    id: 1,
-    name: 'Apple',
-    price: 0.99,
-  },
-  {
-    id: 2,
-    name: 'Banana',
-    price: 10,
-  },
-  {
-    id: 3,
-    name: 'Orange',
-    price: 5,
-  },
-  {
-    id: 4,
-    name: 'Watermelon',
-    price: 15,
-  },
-];
-
 let cart = [];
 
 // An example function that creates HTML elements using the DOM.
@@ -106,7 +83,7 @@ modalClose.addEventListener('click', toggleModal);
 buyButton.addEventListener('click', () => {handleBuy();});
 
 function addToCart(itemId) {
-  const item = items.find((item) => item.id === itemId);
+  const item = items.find((item) => item.code === itemId);
   if (item) {
     cart.push(item);
     updateCart();
@@ -119,11 +96,11 @@ function updateCart() {
   const cartItemMap = new Map();
 
   for (const item of cart) {
-    if (cartItemMap.has(item.id)) {
-      const existingItem = cartItemMap.get(item.id);
+    if (cartItemMap.has(item.code)) {
+      const existingItem = cartItemMap.get(item.code);
       existingItem.quantity++;
     } else {
-      cartItemMap.set(item.id, { item, quantity: 1 });
+      cartItemMap.set(item.code, { item, quantity: 1 });
     }
     total += item.price * (item.quantity || 1);
   }
@@ -136,7 +113,7 @@ function updateCart() {
 
     const removeButton = document.createElement('button');
     removeButton.classList.add('remove-item-btn');
-    removeButton.setAttribute('data-id', item.id);
+    removeButton.setAttribute('data-id', item.code);
     removeButton.innerText = 'Remove Item';
     removeButton.addEventListener('click', removeFromCart);
 
